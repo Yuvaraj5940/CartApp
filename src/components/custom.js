@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 10,
+    paddingLeft:15
   },
   errorText: {
     fontSize: 10,

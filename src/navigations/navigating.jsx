@@ -14,18 +14,18 @@ const Nav = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      
         <Stack.Screen
-         name='SignUp' component={SignUp} 
-         options={{header: () => null}}
+          name='home' component={Home} 
+          options={{header: () => null}}
         />
         <Stack.Screen 
-        name='Login' 
-        component={Login}
-        options={{header: () => null}}
+          name='Login' 
+          component={Login}
+          options={{header: () => null}}
         />
+        
         <Stack.Screen
-         name='home' component={Home} 
+         name='SignUp' component={SignUp} 
          options={{header: () => null}}
         />
         

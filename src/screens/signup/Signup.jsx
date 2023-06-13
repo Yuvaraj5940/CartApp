@@ -12,10 +12,11 @@ import {
   Dimensions,
   Image,
   Pressable,
+  ImageBackground
 } from 'react-native'
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
-import CustomInput from '../custom';
+import CustomInput from '../../components/custom';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -51,6 +52,8 @@ const signUpValidationSchema = yup.object().shape({
 
 const SignUp = ({navigation}) => {
   const [ShowP, setShowP] = useState(true); 
+  const image = {uri: 'https://cdn.telanganatoday.com/wp-content/uploads/2022/04/Swiggy-to-upskill-delivery-boys-to-become-company-employees.jpg'};
+
   const SigninValidations = async (vls) => {
       const n = {name: vls.fullName, email: vls.email, password: vls.password, phoneNumber:vls.phoneNumber, Adress:vls.Adress};
       let res = await JSON.stringify(n);
@@ -64,11 +67,14 @@ const SignUp = ({navigation}) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
+      {/* <ImageBackground source={image} resizeMode="cover" style={styles.container}> */}
+
         <View style={styles.signupContainer}>
+          
           <Image
-        source={require('../../asets/images/signup.png')}
-        style={styles.img}
-      />
+            source={require('../../asets/images/signup.png')}
+            style={styles.img}
+          />
           <Formik
             initialValues={{
               fullName: '',
@@ -144,6 +150,8 @@ const SignUp = ({navigation}) => {
             )}
           </Formik>
         </View>
+        {/* </ImageBackground> */}
+
       </SafeAreaView>
     </>
   )
@@ -151,7 +159,7 @@ const SignUp = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-     width: Dimensions.get('screen').width,
+    width: Dimensions.get('screen').width,
     height: Dimensions.get('screen').height,
     justifyContent: 'center',
     alignItems: 'center',
@@ -163,6 +171,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     elevation: 10,
+    borderRadius:20,
     backgroundColor: '#e6e6e6',
   },
   img: {
@@ -194,6 +203,9 @@ const styles = StyleSheet.create({
         gap:10,
         padding:10
 
+      },
+      image:{
+        width:'100%'
       }
 
 })
