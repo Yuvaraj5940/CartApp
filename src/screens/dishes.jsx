@@ -1,23 +1,52 @@
-import { View, Text ,SafeAreaView,StyleSheet,Dimensions,Image,Pressable,TextInput} from 'react-native';
+import { View, Text ,SafeAreaView,StyleSheet,Dimensions,Image,Pressable,TextInput, FlatList} from 'react-native';
 import React,{useState,useEffect} from 'react'
 import axiosInstance from '../components/utils/axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { RestoData, SetImagelist } from '../redux/action';
+import Scrolimgs from '../components/Scrolimgs';
+import Cards from '../components/Cards';
 
 const Dishes = ({navigation}) => {
     const [imgs, setimgs] = useState([]); 
-    const [resto, setresto] = useState([]);
-    const [data, setdata] = useState([]);
-    
+    // const [ImgList, setImgList] = useState([]); 
+    // const [resto, setresto] = useState([]);
+    // const [data, setdata] = useState([]);
+    const dispatch=useDispatch();
+    const i=useSelector(state=>state.Reducer)
+    console.log('images',i.listimg)
+    console.log('restorent images',i.restodata)
+    console.log(i.restodata.length)
 
     const fetchData= async() =>{
         const res=await axiosInstance.get('FoodData/data.json')
-        console.log(res.data.cards[0].data.data.cards[0].data)
-        // setdata(res.data)
+        const data= await res.data
+        const im=data.cards[0].data.data.cards.map(x=> `https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${x.data.creativeId}` )       
+        dispatch(SetImagelist(im))
+        const rm= data.cards[2].data.data.cards.map(xx=> {
+         return {
+          img:`https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${xx.data.cloudinaryImageId}`,
+          rname: `${xx.data.name}`,
+          menu:`${xx.data.cuisines}`,
+          noOfvote:`${xx.data.totalRatingsString}`,
+          rating:`${xx.data.avgRating}`,
+          area:`${xx.data.area}`,
+          delivary_Time:`${xx.data.sla.deliveryTime}`,
+          traveld:`${xx.data?.lastMileTravelString}`,
+          offer_h:`${xx.data?.aggregatedDiscountInfoV3?.header}`,
+          offer_d:`${xx.data?.aggregatedDiscountInfoV3?.subHeader}`,
+
+        }
+        
+        })
+        dispatch(RestoData(rm))
+        // console.log('restorents',rm)
+      
     }
 
     useEffect( () => {
         fetchData()   
     }, [])
-    
+    // console.log(imgs)
 
 
   return (
@@ -51,10 +80,25 @@ const Dishes = ({navigation}) => {
             <View  style={styles.svline}/>
             <Image  source={require('../asets/images/dish/microphone.png')} style={styles.simg}/>
 
-            
           </View>
-          {/* <Image source={{uri:'rng/md/carousel/production/pneknawbadtvceqzwiep'}} /> */}
-      {/* <Text>Dishes</Text> */}
+          {/* scroll img */}
+          <Scrolimgs  />
+          <Cards />
+
+          {/* <Image source={{uri:'https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/mj1txffjfnjtjmx7ddki'}}
+          style={{width:100,height:100}}/>
+          <Text>jhjdvghgcksd</Text> */}
+         
+          {/* <FlatList
+          data={i.restodata}
+          horizontal
+          renderItem={({item,index})=>
+            <Image source={{uri:`https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${i.restodata[index]}`}}
+            style={{width:100,height:100}}/>
+          }
+          /> */}
+          
+
     </SafeAreaView>
   )
 }
@@ -120,6 +164,7 @@ const styles=StyleSheet.create({
       simg:{width:20,height:20},
       svline:{borderRightWidth:1, borderColor:'gray',height:25},
       inputText:{flex:1},
+     
       
 
 })

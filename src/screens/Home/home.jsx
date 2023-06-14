@@ -7,8 +7,7 @@ import Profile from '../Profile';
 const Tab = createBottomTabNavigator();
 
 const Home = ({navigation}) => {
-  
-    
+
   return (
     <Tab.Navigator
      screenOptions={({ route }) => ({

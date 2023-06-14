@@ -18,12 +18,11 @@ const Nav = () => {
           name='home' component={Home} 
           options={{header: () => null}}
         />
-        <Stack.Screen 
+       <Stack.Screen 
           name='Login' 
           component={Login}
           options={{header: () => null}}
         />
-        
         <Stack.Screen
          name='SignUp' component={SignUp} 
          options={{header: () => null}}
