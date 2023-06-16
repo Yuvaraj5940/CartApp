@@ -9,4 +9,4 @@ import Profile from './src/screens/Profile';
 // import Profile from './src/screens/Profile';
 // import Dishes from './src/screens/dishes';
 
-AppRegistry.registerComponent(appName, () => Profile);
+AppRegistry.registerComponent(appName, () => App);

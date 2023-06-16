@@ -9,12 +9,17 @@ import Splash from '../screens/splash';
 
 
 
+
 const Stack = createStackNavigator();
 
 const Nav = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      {/* <Stack.Screen
+          name='home' component={Home} 
+          options={{header: () => null}}
+        /> */}
       <Stack.Screen
          name='Splash' component={Splash} 
          options={{header: () => null}}
