@@ -46,6 +46,10 @@ const signUpValidationSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password')], 'Passwords do not match')
     .required('Confirm password is required'),
+    Adress: yup
+    .string()
+    .min(15)
+    .required('Adress is required')
 })
 
 
@@ -59,7 +63,7 @@ const SignUp = ({navigation}) => {
       let res = await JSON.stringify(n);
       await AsyncStorage.clear()
       await AsyncStorage.setItem('user', res);
-      console.log(vls);
+      // console.log(vls);
       navigation.navigate('Login');
     
   };

@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet,Dimensions,Button, SafeAreaView,Image, Pressable,Alert,ImageBackground } from 'react-native'
+import { View, Text,StyleSheet,Dimensions,Button, SafeAreaView,Image, Pressable,Alert } from 'react-native'
 import React ,{useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Formik, Field } from 'formik';
@@ -49,7 +49,6 @@ const Forgotp= async()=>{
   return (
     <>
     <SafeAreaView style={styles.container}>
-        <ImageBackground source={{uri:'https://1000logos.net/wp-content/uploads/2021/05/Swiggy-logo.png'}} style={styles.bimg}>
           <View style={styles.signupContainer}>
 
           <Image
@@ -111,8 +110,6 @@ const Forgotp= async()=>{
             )}
           </Formik>
           </View>
-
-        </ImageBackground>
       </SafeAreaView>
     </>
   )
@@ -125,7 +122,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('screen').height,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffff',
+    backgroundColor: '#FAE5D3',
   },
   signupContainer: {
     width: '80%',

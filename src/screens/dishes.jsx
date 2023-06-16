@@ -1,4 +1,4 @@
-import { View, Text ,SafeAreaView,StyleSheet,Dimensions,Image,Pressable,TextInput, FlatList} from 'react-native';
+import { View, Text ,SafeAreaView,StyleSheet,Dimensions,Image,ActivityIndicator,TextInput, TouchableOpacity} from 'react-native';
 import React,{useState,useEffect} from 'react'
 import axiosInstance from '../components/utils/axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,15 +7,13 @@ import Scrolimgs from '../components/Scrolimgs';
 import Cards from '../components/Cards';
 
 const Dishes = ({navigation}) => {
-    const [imgs, setimgs] = useState([]); 
-    // const [ImgList, setImgList] = useState([]); 
-    // const [resto, setresto] = useState([]);
-    // const [data, setdata] = useState([]);
+    // const [imgs, setimgs] = useState([]);
+    const [isLoad, setisLoad] = useState(false); 
+ 
     const dispatch=useDispatch();
     const i=useSelector(state=>state.Reducer)
     console.log('images',i.listimg)
     console.log('restorent images',i.restodata)
-    console.log(i.restodata.length)
 
     const fetchData= async() =>{
         const res=await axiosInstance.get('FoodData/data.json')
@@ -34,19 +32,16 @@ const Dishes = ({navigation}) => {
           traveld:`${xx.data?.lastMileTravelString}`,
           offer_h:`${xx.data?.aggregatedDiscountInfoV3?.header}`,
           offer_d:`${xx.data?.aggregatedDiscountInfoV3?.subHeader}`,
-
-        }
-        
+        } 
         })
         dispatch(RestoData(rm))
-        // console.log('restorents',rm)
+        setisLoad(true)
       
     }
 
     useEffect( () => {
         fetchData()   
     }, [])
-    // console.log(imgs)
 
 
   return (
@@ -62,14 +57,14 @@ const Dishes = ({navigation}) => {
                 </View>
                 <Text numberOfLines={1} style={styles.h3}>bdhgjsk vjhdsbvksjbm vn jvbsdkf hvgfr gbfrvk khfger jvhfdsjf dsfhksjd dfhsklh dflks</Text>
             </View>
-            <Pressable 
-            onPress={()=>navigation.navigate('profile')}
-            >
+            <TouchableOpacity 
+              onPress={()=>navigation.navigate('profile')}
+              >
                 <Image
                     source={require('../asets/images/dish/profile.png')}
                     style={styles.pimg}
                 /> 
-            </Pressable>       
+            </TouchableOpacity>       
           </View>
           <View style={styles.search}>
             <TextInput 
@@ -82,23 +77,18 @@ const Dishes = ({navigation}) => {
 
           </View>
           {/* scroll img */}
-          <Scrolimgs  />
-          <Cards />
 
-          {/* <Image source={{uri:'https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/mj1txffjfnjtjmx7ddki'}}
-          style={{width:100,height:100}}/>
-          <Text>jhjdvghgcksd</Text> */}
-         
-          {/* <FlatList
-          data={i.restodata}
-          horizontal
-          renderItem={({item,index})=>
-            <Image source={{uri:`https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${i.restodata[index]}`}}
-            style={{width:100,height:100}}/>
+          {
+            isLoad?<Scrolimgs  />:<View style={[styles.cont, styles.horizontal]}>
+                    <ActivityIndicator size="large" color="#00ff00" />
+                  </View>
           }
-          /> */}
-          
-
+          {/* hotell */}
+          {
+            isLoad?<Cards  />:<View style={[styles.cont, styles.horizontal]}>
+                <ActivityIndicator size="large" color="#00ff00" />
+                  </View>
+          }
     </SafeAreaView>
   )
 }
@@ -164,6 +154,15 @@ const styles=StyleSheet.create({
       simg:{width:20,height:20},
       svline:{borderRightWidth:1, borderColor:'gray',height:25},
       inputText:{flex:1},
+      cont: {
+        flex: 1,
+        justifyContent: 'center',
+      },
+      horizontal: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10,
+      },
      
       
 

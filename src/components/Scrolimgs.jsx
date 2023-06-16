@@ -10,7 +10,7 @@ const Scrolimgs = () => {
     
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <SliderBox
             images={x.listimg}
             dotColor="#FFEE58"
@@ -24,12 +24,12 @@ const Scrolimgs = () => {
             }}
             autoplay
             circleLoop
-            ImageComponentStyle={{borderRadius: 15, width: '95%', marginTop:5}}
+            ImageComponentStyle={{borderRadius: 15, width: '92%', marginTop:5}}
             imageLoadingColor="#2196F3"            
-            />
+        />
 
         
-            </SafeAreaView>
+      </View>
             
       </>
   )

@@ -5,6 +5,7 @@ import React from 'react'
 import SignUp from '../screens/signup/Signup';
 import Login from '../screens/login/Login';
 import Home from '../screens/Home/home';
+import Splash from '../screens/splash';
 
 
 
@@ -14,11 +15,15 @@ const Nav = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+      <Stack.Screen
+         name='Splash' component={Splash} 
+         options={{header: () => null}}
+        />
+      <Stack.Screen
           name='home' component={Home} 
           options={{header: () => null}}
         />
-       <Stack.Screen 
+        <Stack.Screen 
           name='Login' 
           component={Login}
           options={{header: () => null}}
