@@ -102,6 +102,8 @@ const Dishes = ({navigation}) => {
           <ActivityIndicator size="large" color="#00ff00" />
         </View>
       )}
+
+
       {/* hotell */}
       {isLoad ? (
         <Cards />
