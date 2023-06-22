@@ -6,6 +6,8 @@ import SignUp from '../screens/signup/Signup';
 import Login from '../screens/login/Login';
 import Home from '../screens/Home/home';
 import Splash from '../screens/splash';
+import Menu from '../screens/menu';
+import CartItems from '../screens/Cartitem';
 
 
 
@@ -16,22 +18,27 @@ const Nav = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      {/* <Stack.Screen
+      <Stack.Screen 
+          name='Login' 
+          component={Login}
+          options={{header: () => null}}
+        />
+      <Stack.Screen
           name='home' component={Home} 
           options={{header: () => null}}
-        /> */}
+        />
       <Stack.Screen
          name='Splash' component={Splash} 
          options={{header: () => null}}
         />
-      <Stack.Screen
-          name='home' component={Home} 
+        <Stack.Screen 
+          name='Rmenu' 
+          component={Menu}
           options={{header: () => null}}
         />
-        <Stack.Screen 
-          name='Login' 
-          component={Login}
-          options={{header: () => null}}
+      <Stack.Screen
+          name='cart' component={CartItems} 
+          options={{title: () => null}}
         />
         <Stack.Screen
          name='SignUp' component={SignUp} 

@@ -14,7 +14,7 @@ import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Cards = () => {
+const Cards = ({navigation}) => {
   const data = [{name: 'dmw'}, {name: 'kljhs'}];
   const i = useSelector(state => state.Reducer);
   console.log(i.restodata);
@@ -38,7 +38,8 @@ const Cards = () => {
           data={i.restodata}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => (
-            <View style={styles.cards}>
+            <View style={styles.cards}
+              >
               <View style={styles.card_img}>
                 <ImageBackground
                   imageStyle={{borderRadius: 10}}
@@ -67,8 +68,12 @@ const Cards = () => {
                   </View>
                 </ImageBackground>
               </View>
-              <View style={styles.card_col2}>
-                <Pressable style={styles.more}>
+              <Pressable style={styles.card_col2}
+              onPress={()=> navigation.navigate('Rmenu')}
+              >
+                <Pressable style={styles.more}
+                  
+                    >
                   <Image
                     source={require('../asets/images/cards/more.png')}
                     style={styles.simg1}
@@ -101,7 +106,7 @@ const Cards = () => {
                   />
                   <Text style={styles.textde}>Free Delivery</Text>
                 </LinearGradient>
-              </View>
+              </Pressable>
             </View>
           )}
         />

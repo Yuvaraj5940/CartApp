@@ -12,7 +12,7 @@ import {
 import React, {useState, useEffect} from 'react';
 import axiosInstance from '../components/utils/axios';
 import {useDispatch, useSelector} from 'react-redux';
-import {RestoData, SetImagelist} from '../redux/action';
+import {LoadMenu, RestoData, SetImagelist} from '../redux/action';
 import Scrolimgs from '../components/Scrolimgs';
 import Cards from '../components/Cards';
 
@@ -26,7 +26,7 @@ const Dishes = ({navigation}) => {
   console.log('restorent images', i.restodata);
 
   const fetchData = async () => {
-    const res = await axiosInstance.get('FoodData/data.json');
+    const res = await axiosInstance.get('/data.json');
     const data = await res.data;
     const im = data.cards[0].data.data.cards.map(
       x =>
@@ -50,9 +50,30 @@ const Dishes = ({navigation}) => {
     dispatch(RestoData(rm));
     setisLoad(true);
   };
+  
+  const loadMenu= async()=>{
+    const res=await axiosInstance.get('menuItem.json')
+    const data=await res.data
+    const rmenu=data.itemCards.map(x=>{
+        return {
+            food_name: x.card.info.name,
+            food_img: `https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${x.card.info.imageId}`,
+            category: x.card.info.category,
+            id: x.card.info.id,
+            ratings: x.card.info.ratings.aggregatedRating.rating,
+            price: x.card.info.price,
+            ratingCount: x.card.info.ratings.aggregatedRating.ratingCountV2,
+            quantity:0,
+
+        }
+        })
+    dispatch(LoadMenu(rmenu))
+}
 
   useEffect(() => {
     fetchData();
+    loadMenu();
+
   }, []);
 
   return (
@@ -106,7 +127,7 @@ const Dishes = ({navigation}) => {
 
       {/* hotell */}
       {isLoad ? (
-        <Cards />
+        <Cards navigation={navigation} />
       ) : (
         <View style={[styles.cont, styles.horizontal]}>
           <ActivityIndicator size="large" color="#00ff00" />
