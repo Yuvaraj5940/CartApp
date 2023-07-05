@@ -248,9 +248,10 @@ const styles = StyleSheet.create({
     elevation: 10,
     alignSelf: 'center',
     position: 'relative',
-    bottom: 30,
+    bottom: 20,
     borderRadius: 10,
     backgroundColor: '#45EA47',
+    margin:15
   },
   carttext: {
     fontSize: 20,

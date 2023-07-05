@@ -60,8 +60,8 @@ const Forgotp= async()=>{
               email: '',
               password: '',
             }}
-            validationSchema={signUpValidationSchema}
-            onSubmit={values => Loginvalidations(values)}
+            validationSchema={signUpValidationSchema} 
+            onSubmit={values => Loginvalidations(values)} 
           >
             {({ handleSubmit, isValid, errors }) => (
               <>
